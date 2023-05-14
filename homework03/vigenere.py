@@ -73,7 +73,7 @@ def decrypt_vigenere(ciphertext: str, keyword: str) -> str:
     >>> decrypt_vigenere("LXFOPVEFRNHR", "LEMON")
     'ATTACKATDAWN'
     """
-    plaintext = ""
+    plaintext = ''
     keyword = keyword_lenght(ciphertext, keyword)
 
     if find_language(ciphertext) == 'eng':
