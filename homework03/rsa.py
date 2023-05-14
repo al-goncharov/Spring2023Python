@@ -83,7 +83,7 @@ def generate_keypair(p: int, q: int) -> tp.Tuple[tp.Tuple[int, int], tp.Tuple[in
     if not (is_prime(p) and is_prime(q)):
         raise ValueError("Both numbers must be prime.")
     elif p == q:
-        raise ValueError("p and q cannot be equal")
+        raise ValueError('p and q cannot be equal')
 
     # n = pq
     n = p * q

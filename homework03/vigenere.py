@@ -1,6 +1,6 @@
 
-alphabet_en = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-alphabet_ru = 'АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ'
+alphabet_en = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+alphabet_ru = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ"
 
 def keyword_lenght(plaintext: str, keyword: str):
     new_keyword = ""

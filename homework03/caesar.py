@@ -50,8 +50,8 @@ def decrypt_caesar(ciphertext: str, shift: int = 3) -> str:
     ''
     """
     plaintext = ""
-    alphabet_en_shift = ""
-    alphabet_ru_shift = ""
+    alphabet_en_shift = ''
+    alphabet_ru_shift = ''
 
     for i in range(len(alphabet_en)):
         alphabet_en_shift += alphabet_en[(i + shift) % len(alphabet_en)]
