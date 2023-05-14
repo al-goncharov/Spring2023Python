@@ -1,9 +1,7 @@
 import typing as tp
 
-alpha_big_en = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-alpha_small_en = 'abcdefghijklmnopqrstuvwxyz'
-alpha_big_ru = 'АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ'
-alpha_small_ru = 'абвгдеёжзийклмнопрстуфхцчшщъыьэюя'
+alphabet_en = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+alphabet_ru = 'АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ'
 
 def encrypt_caesar(plaintext: str, shift: int = 3) -> str:
     """
@@ -19,25 +17,22 @@ def encrypt_caesar(plaintext: str, shift: int = 3) -> str:
     ''
     """
     ciphertext = ""
-    alpha_big_en_shift = ''
-    alpha_small_en_shift = ''
-    alpha_big_ru_shift = ''
-    alpha_small_ru_shift = ''
+    alphabet_en_shift = ""
+    alphabet_ru_shift = ""
 
-    for i in range(len(alpha_big_en)):
-        alpha_big_en_shift += alpha_big_en[(i + shift) % len(alpha_big_en)]
-        alpha_small_en_shift += alpha_small_en[(i + shift) % len(alpha_small_en)]
+    for i in range(len(alphabet_en)):
+        alphabet_en_shift += alphabet_en[(i + shift) % len(alphabet_en)]
 
-    for i in range(len(alpha_big_ru)):
-        alpha_big_ru_shift += alpha_big_ru[(i + shift) % len(alpha_big_ru)]
-        alpha_small_ru_shift += alpha_small_ru[(i + shift) % len(alpha_small_ru)]
+    for i in range(len(alphabet_ru)):
+        alphabet_ru_shift += alphabet_ru[(i + shift) % len(alphabet_ru)]
 
-    mytable_big_en = str.maketrans(alpha_big_en, alpha_big_en_shift)
-    mytable_small_en = str.maketrans(alpha_small_en, alpha_small_en_shift)
-    mytable_big_ru = str.maketrans(alpha_big_ru, alpha_big_ru_shift)
-    mytable_small_ru = str.maketrans(alpha_small_ru, alpha_small_ru_shift)
+    mytable_up_en = str.maketrans(alphabet_en, alphabet_en_shift)
+    mytable_low_en = str.maketrans(alphabet_en.lower(), alphabet_en_shift.lower())
+    mytable_up_ru = str.maketrans(alphabet_ru, alphabet_ru_shift)
+    mytable_low_ru = str.maketrans(alphabet_ru.lower(), alphabet_ru_shift.lower())
 
-    ciphertext = plaintext.translate(mytable_big_en).translate(mytable_small_en).translate(mytable_big_ru).translate(mytable_small_ru)
+    ciphertext = plaintext.translate(mytable_up_en).translate(mytable_low_en)
+    ciphertext = ciphertext.translate(mytable_up_ru).translate(mytable_low_ru)
 
     return ciphertext
 
@@ -55,26 +50,22 @@ def decrypt_caesar(ciphertext: str, shift: int = 3) -> str:
     ''
     """
     plaintext = ""
-    alpha_big_en_shift = ''
-    alpha_small_en_shift = ''
-    alpha_big_ru_shift = ''
-    alpha_small_ru_shift = ''
+    alphabet_en_shift = ""
+    alphabet_ru_shift = ""
 
-    for i in range(len(alpha_big_en)):
-        alpha_big_en_shift += alpha_big_en[(i + shift) % len(alpha_big_en)]
-        alpha_small_en_shift += alpha_small_en[(i + shift) % len(alpha_small_en)]
+    for i in range(len(alphabet_en)):
+        alphabet_en_shift += alphabet_en[(i + shift) % len(alphabet_en)]
 
-    for i in range(len(alpha_big_ru)):
-        alpha_big_ru_shift += alpha_big_ru[(i + shift) % len(alpha_big_ru)]
-        alpha_small_ru_shift += alpha_small_ru[(i + shift) % len(alpha_small_ru)]
+    for i in range(len(alphabet_ru)):
+        alphabet_ru_shift += alphabet_ru[(i + shift) % len(alphabet_ru)]
 
-    mytable_big_en = str.maketrans(alpha_big_en_shift, alpha_big_en)
-    mytable_small_en = str.maketrans(alpha_small_en_shift, alpha_small_en)
-    mytable_big_ru = str.maketrans(alpha_big_ru_shift, alpha_big_ru)
-    mytable_small_ru = str.maketrans(alpha_small_ru_shift, alpha_small_ru)
+    mytable_up_en = str.maketrans(alphabet_en_shift, alphabet_en)
+    mytable_low_en = str.maketrans(alphabet_en_shift.lower(), alphabet_en.lower())
+    mytable_up_ru = str.maketrans(alphabet_ru_shift, alphabet_ru)
+    mytable_low_ru = str.maketrans(alphabet_ru_shift.lower(), alphabet_ru.lower())
 
-    plaintext = ciphertext.translate(mytable_big_en).translate(mytable_small_en).translate(mytable_big_ru).translate(
-        mytable_small_ru)
+    plaintext = ciphertext.translate(mytable_up_en).translate(mytable_low_en)
+    plaintext = plaintext.translate(mytable_up_ru).translate(mytable_low_ru)
 
     return plaintext
 
