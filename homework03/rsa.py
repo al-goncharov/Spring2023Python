@@ -1,5 +1,6 @@
 import random
 import typing as tp
+import xmlrpc.client
 
 
 def is_prime(n: int) -> bool:
@@ -13,8 +14,11 @@ def is_prime(n: int) -> bool:
     >>> is_prime(8)
     False
     """
-    # PUT YOUR CODE HERE
-    pass
+    counter = 0
+    for i in range(1, n + 1):
+        if n % i == 0:
+            counter += 1
+    return counter == 2
 
 
 def gcd(a: int, b: int) -> int:
@@ -26,9 +30,20 @@ def gcd(a: int, b: int) -> int:
     >>> gcd(3, 7)
     1
     """
-    # PUT YOUR CODE HERE
-    pass
+    if a == 0 and b == 0:
+        return 0
+    elif a == 0 or b == 0:
+        return abs(a - b)
 
+    max_num = max(a, b)
+    min_num = min(a, b)
+
+    while max_num % min_num != 0:
+        buffer = max_num % min_num
+        max_num = min_num
+        min_num = buffer
+
+    return min_num
 
 def multiplicative_inverse(e: int, phi: int) -> int:
     """
@@ -38,8 +53,30 @@ def multiplicative_inverse(e: int, phi: int) -> int:
     >>> multiplicative_inverse(7, 40)
     23
     """
-    # PUT YOUR CODE HERE
-    pass
+    max_num = phi
+    min_num = e
+    diff = []
+    diff.append(max_num // min_num)
+    counter = 1
+
+    while max_num % min_num != 0:
+        buffer = max_num % min_num
+        max_num = min_num
+        min_num = buffer
+        diff.append(max_num // min_num)
+        counter += 1
+
+    x = [0 for i in range(counter)]
+    y = [0 for i in range(counter - 1)]
+    y.append(1)
+
+    for i in reversed(range(1, counter)):
+        x[i - 1] = y[i]
+        y[i - 1] = x[i] - y[i] * diff[i - 1]
+
+    return y[0] % phi
+
+
 
 
 def generate_keypair(p: int, q: int) -> tp.Tuple[tp.Tuple[int, int], tp.Tuple[int, int]]:
@@ -49,10 +86,10 @@ def generate_keypair(p: int, q: int) -> tp.Tuple[tp.Tuple[int, int], tp.Tuple[in
         raise ValueError("p and q cannot be equal")
 
     # n = pq
-    # PUT YOUR CODE HERE
+    n = p * q
 
     # phi = (p-1)(q-1)
-    # PUT YOUR CODE HERE
+    phi = (p - 1) * (q - 1)
 
     # Choose an integer e such that e and phi(n) are coprime
     e = random.randrange(1, phi)
