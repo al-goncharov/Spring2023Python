@@ -12,6 +12,7 @@ def find_language(plaintext: str):
     for i in range(len(plaintext)):
         if plaintext[i].isalpha():
             letter = plaintext[i]
+            break
         else:
             continue
     dict = [-1, -1, -1, -1]
